@@ -2,7 +2,8 @@ exports.seed = function(knex) {
   // Deletes ALL existing entries
   return knex('books').del()
     .then(function() {
-      return knex('books').insert([{
+      return knex('books').insert([
+        {
         id: 1,
         title: 'JavaScript, The Good Parts',
         author: 'Douglas Crockford',
