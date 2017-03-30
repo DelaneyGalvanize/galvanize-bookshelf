@@ -1,13 +1,3 @@
-// 'use strict';
-//
-// const express = require('express');
-//
-// // eslint-disable-next-line new-cap
-// const router = express.Router();
-//
-// // YOUR CODE HERE
-//
-// module.exports = router;
 
 'use strict';
 
@@ -17,12 +7,12 @@ const router = express.Router();
 const knex = require('../knex')
 const humps = require('humps')
 
-// YOUR CODE HERE
+
 router.get('/books', (req, res, next) => {
   knex('books')
   .orderBy('title', 'asc')
-  .then(data => {
-    res.send(humps.camelizeKeys(data));
+  .then(booksData => {
+    res.send(humps.camelizeKeys(booksData));
   });
 });
 
@@ -30,8 +20,8 @@ router.get('/books/:id', (req, res, next) => {
   let id = req.params.id;
   knex('books')
   .where('id', id)
-  .then(data => {
-    res.send(humps.camelizeKeys(data[0]));
+  .then(booksData => {
+    res.send(humps.camelizeKeys(booksData[0]));
   });
 });
 
@@ -44,8 +34,8 @@ router.post('/books', (req, res, next) => {
     description: req.body.description,
     cover_url: req.body.coverUrl
   }, '*')
-  .then(data => {
-    res.send(humps.camelizeKeys(data[0]));
+  .then(booksData => {
+    res.send(humps.camelizeKeys(booksData[0]));
   });
 });
 
@@ -55,8 +45,8 @@ router.patch('/books/:id', (req, res, next) => {
   .where('id', id)
   .update(humps.decamelizeKeys(req.body))
   .returning('*')
-  .then(data => {
-    res.send(humps.camelizeKeys(data[0]));
+  .then(booksData => {
+    res.send(humps.camelizeKeys(booksData[0]));
   });
 });
 
@@ -66,8 +56,8 @@ router.delete('/books/:id', (req, res, next) => {
   .where('id', id)
   .returning(['title', 'author', 'genre', 'description', 'cover_url'])
   .del()
-  .then(data => {
-    res.send(humps.camelizeKeys(data[0]));
+  .then(booksData => {
+    res.send(humps.camelizeKeys(booksData[0]));
   });
 });
 
