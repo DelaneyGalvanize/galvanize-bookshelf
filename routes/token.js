@@ -8,7 +8,7 @@ const knex = require('../knex')
 const bcrypt = require('bcrypt')
 const router = express.Router()
 
-router.get('/token', (req, res, next) => {
+router.get('/', (req, res, next) => {
   if (!req.cookies.token) {
     res.status(200).send(false)
   } else {
@@ -16,7 +16,7 @@ router.get('/token', (req, res, next) => {
   }
 })
 
-router.post('/token', (req, res, next) => {
+router.post('/', (req, res, next) => {
   let email = req.body.email
   let password = req.body.password
   knex('users')
@@ -39,7 +39,7 @@ router.post('/token', (req, res, next) => {
     })
 })
 
-router.delete('/token', (req, res, session) => {
+router.delete('/', (req, res, session) => {
   res.clearCookie('token')
   res.send(true)
 })

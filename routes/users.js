@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt')
 const boom = require('boom')
 const router = express.Router();
 
-router.post('/users', (req, res, next) => {
+router.post('/', (req, res, next) => {
   if (!req.body.email || req.body.email.trim() === '') {
     return next(boom.create(400, 'Email must not be blank'))
   } else if (!req.body.password || req.body.password.trim() === '') {
