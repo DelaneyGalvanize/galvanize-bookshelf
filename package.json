@@ -4,12 +4,13 @@
   "description": "Create a web application to manage your book collection",
   "main": "server.js",
   "scripts": {
-    "start": "node ./bin/www",
     "heroku-postbuild": "knex migrate:rollback; knex migrate:latest; knex seed:run;",
     "knex": "knex",
     "lint": "eslint  --ignore-pattern public/js/vendor",
     "nf": "nf start",
+    "start": "nodemon server.js",
     "test": "mocha",
+    "nodemon": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -32,7 +33,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "humps": "^1.1.0",
-    "jsonwebtoken": "^7.1.9",
+    "jsonwebtoken": "^7.3.0",
     "knex": "^0.11.7",
     "morgan": "^1.7.0",
     "pg": "^6.0.0"
@@ -40,8 +41,6 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "dotenv": "^2.0.0",
-    "eslint": "^3.1.1",
-    "eslint-config-ryansobol": "^7.7.0",
     "foreman": "^1.4.1",
     "mocha": "^2.5.3",
     "nodemon": "^1.10.0",
