@@ -30,7 +30,7 @@ router.post('/', (req, res, next) => {
                         let token = jwt.sign({
                             email: userData[0].email,
                             password: userData[0].hashed_password
-                        }, process.env.JWT_KEY);
+                        }, 'secret');
                         res.cookie('token', token, {
                             httpOnly: true
                         })
