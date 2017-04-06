@@ -1,20 +1,18 @@
 'use strict';
 
 module.exports = {
-  development:{
+  development: {
     client: 'pg',
-    connection: 'postgres://localhost/bookshelf_dev'
+    connection: 'postgres://localhost/galvanize-bookshelf'
   },
 
   test: {
     client: 'pg',
-    connection: 'postgres://localhost/bookshelf_test'
+    connection: 'postgres://localhost/galvanize-bookshelf'
   },
 
   production: {
     client: 'pg',
-    connection: process.env.DATABASE_URL
+    connection: process.env.DATABASE_URL + '?ssl=true'
   }
-
-
 };
