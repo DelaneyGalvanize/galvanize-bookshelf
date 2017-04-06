@@ -8,12 +8,6 @@ const boom = require('boom')
 const router = express.Router();
 
 router.post('/', (req, res, next) => {
-  if (!req.body.email || req.body.email.trim() === '') {
-    return next(boom.create(400, 'Email must not be blank'))
-  } else if (!req.body.password || req.body.password.trim() === '') {
-    return next(boom.create(400, 'Password must be at least 8 characters long'))
-  }
-
   knex('users')
     .where('email', req.body.email)
     .then((exists) => {
