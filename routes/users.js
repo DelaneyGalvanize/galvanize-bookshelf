@@ -21,9 +21,8 @@ router.post('/', (req, res, next) => {
             last_name: req.body.lastName,
             email: req.body.email,
             hashed_password: bcrypt.hashSync(req.body.password, 10)
-          }).then((user) => {
-            console.log(user[0]);
-            res.send(humps.camelizeKeys(user[0]))
+          }).then((userData) => {
+            res.send(humps.camelizeKeys(userData[0]))
           })
       }
     })

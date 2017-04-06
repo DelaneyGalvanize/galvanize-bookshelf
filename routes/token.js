@@ -21,14 +21,14 @@ router.post('/', (req, res, next) => {
   let password = req.body.password
   knex('users')
     .where('email', email)
-    .then((data) => {
+    .then((userData) => {
       if (data.length > 0) {
-        bcrypt.compare(password, data[0].hashed_password, (err, result) => {
+        bcrypt.compare(password, userData[0].hashed_password, (err, result) => {
           if (result) {
-            let token = jwt.sign({ email: data[0].email, password: data[0].hashed_password}, "shhh");
+            let token = jwt.sign({ email: userData[0].email, password: userData[0].hashed_password}, "shhh");
             res.cookie('token', token, { httpOnly:true })
-            delete data[0].hashed_password
-            res.send(humps.camelizeKeys(data[0]))
+            delete userData[0].hashed_password
+            res.send(humps.camelizeKeys(userData[0]))
           } else {
             next(boom.create(400, 'Bad email or password'))
           }
