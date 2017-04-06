@@ -7,7 +7,7 @@ const router = express.Router();
 const boom = require('boom')
 
 
-router.get('/books', (req, res, next) => {
+router.get('/', (req, res, next) => {
     knex('books')
         .orderBy('title', 'asc')
         .then(booksData => {
@@ -15,7 +15,7 @@ router.get('/books', (req, res, next) => {
         });
 });
 
-router.get('/books/:id', (req, res, next) => {
+router.get('/:id', (req, res, next) => {
     let id = req.params.id;
     if (isNaN(id)) {
         return next(boom.create(404, 'Not Found'));
@@ -32,7 +32,7 @@ router.get('/books/:id', (req, res, next) => {
 });
 
 
-router.post('/books', (req, res, next) => {
+router.post('/', (req, res, next) => {
     if (!req.body.title) {
         return next(boom.create(400, 'Title must not be blank'));
     }
@@ -62,7 +62,7 @@ router.post('/books', (req, res, next) => {
         });
 });
 
-router.patch('/books/:id', (req, res, next) => {
+router.patch('/:id', (req, res, next) => {
     let id = req.params.id
     if (isNaN(id)) {
         return next(boom.create(404, 'Not Found'));
@@ -87,7 +87,7 @@ router.patch('/books/:id', (req, res, next) => {
 
 
 
-router.delete('/books/:id', (req, res, next) => {
+router.delete('/:id', (req, res, next) => {
     let id = req.params.id;
     if (isNaN(id)) {
         return next(boom.create(404, 'Not Found'));

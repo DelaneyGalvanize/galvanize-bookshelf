@@ -5,12 +5,9 @@ const express = require('express');
 const knex = require('../knex');
 const bcrypt = require('bcrypt-as-promised');
 const humps = require('humps')
-const knex = require('../knex');
-const bcrypt = require('bcrypt-as-promised');
-const humps = require('humps')
 const router = express.Router();
 
-router.post('/users', (req, res, next) => {
+router.post('/', (req, res, next) => {
   bcrypt.hash(req.body.password, 8)
   .then((hashed_password) => {
     return knex('users')
@@ -21,9 +18,11 @@ router.post('/users', (req, res, next) => {
       hashed_password: hashed_password
     })
     .returning(['id', 'first_name', 'last_name', 'email']);
+
   })
 
-  .then(userData => {
+  .then(userData =>{
+    delete userData[0].hashed_password;
     res.send(humps.camelizeKeys(userData[0]));
   })
 })

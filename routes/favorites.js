@@ -8,20 +8,20 @@ const knex = require('../knex')
 const bcrypt = require('bcrypt')
 const router = express.Router()
 
-router.get('/favorites', (req, res, next) => {
+router.get('/', (req, res, next) => {
   if (!req.cookies.token) {
     next(boom.create(401, 'Unauthorized'))
   } else {
     knex('favorites')
+      //need users id from favorites table here
       .join('books', 'books.id', 'favorites.book_id')
-      .select("books.*", "favorites.id", "favorites.book_id", "favorites.user_id")
       .then((userData) => {
         res.send(humps.camelizeKeys(userData))
       })
   }
 })
 
-router.get('/favorites/check', (req, res, next) => {
+router.get('/check', (req, res, next) => {
   if (!req.cookies.token) {
     next(boom.create(401, 'Unauthorized'))
   } else {
@@ -37,7 +37,7 @@ router.get('/favorites/check', (req, res, next) => {
   }
 })
 
-router.post('/favorites', (req, res, next) => {
+router.post('/', (req, res, next) => {
   if (!req.cookies.token) {
     next(boom.create(401, 'Unauthorized'))
   } else {
@@ -52,7 +52,7 @@ router.post('/favorites', (req, res, next) => {
   }
 })
 
-router.delete('/favorites', (req, res, next) => {
+router.delete('/', (req, res, next) => {
   if (!req.cookies.token) {
     next(boom.create(401, 'Unauthorized'))
   } else {
